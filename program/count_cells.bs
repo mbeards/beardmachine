@@ -1,0 +1,15 @@
+            // Set R3 to 00000111
+1101 11 01  // SETUP 3 1
+1110 11 11  // SETLO 3 3 
+            // Copy R3 to SR1
+0110 11 01  // CPS 3 1
+            // Set comparison target 254 11111110
+1101 11 11  // SETUP 3 3
+1101 11 10  // SETLO 3 2
+            // #LABEL LOOP 0x05
+0100 01 10  // CP R1 R2
+0111 01 00  // INC R1
+1010 11 01  // JLE R3 R1
+1111 00 00  // HALT
+
+
