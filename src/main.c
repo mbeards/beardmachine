@@ -5,24 +5,35 @@
 int main(int argc, char** argv) {
   printf("Beardmachine test\n");
 
+  // Set up a machine
+  BeardCPU* cpu = beardmachine_init();
+
+
   char input[128];
 
   while(true) {
     printf("> ");
     scanf("%s", input);
 
-    if(input[0] == 'r') {
-      printf("Register Read\n");
-    } else if (input[0] == 's' && input[1] == 'r') {
-      printf("Special Register Read\n");
+    if(input[0] == 'r' || (input[0] == 's' && input[1] == 'r')) {
+      unsigned int addr;
+      scanf("%u", &addr);
+      if(addr < 0 || addr > 3) {
+        printf("Target %sregister %u does not exist.\n", input[0]=='s'?"special ":"", addr);
+        continue;
+      }
+      BYTE_T value = read_register(addr, input[0]=='s', cpu);
+      printf("%sRegister %u: %x\n", input[0]=='s'?"Special ":"", addr, value);
     } else if (input[0] == 'm' && input[1] == 'r') {
       printf("Memory Read\n");
     } else if (input[0] == 'm' && input[1] == 'w') {
       printf("Memory Write\n");
     } else if (input[0] == 's') {
       printf("Step\n");
+      step(cpu);
     } else if (input[0] == 'q') {
       printf("Goodbye.\n");
+      beardmachine_teardown(cpu);
       return 0;
     } else {
       printf("Unknown command.\n");

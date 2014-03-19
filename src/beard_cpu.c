@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "beard_cpu.h"
 
 void step(BeardCPU* inCPU) {
@@ -51,6 +52,7 @@ void step(BeardCPU* inCPU) {
       break;
     case NOP:
     default:
+      advance(inCPU);
       break;
   }
 }
@@ -103,4 +105,14 @@ void write_register(const unsigned int register_id, const bool special, const BY
 void advance(BeardCPU* inCPU) {
   BYTE_T program_counter = read_register(0, true, inCPU);
   write_register(0, true, program_counter + 1, inCPU);
+}
+
+BeardCPU* beardmachine_init() {
+  // Allocate memory
+  BeardCPU* cpu_ptr = (BeardCPU*)malloc(sizeof(struct BeardCPU));
+  return cpu_ptr;
+}
+
+void beardmachine_teardown(BeardCPU* inCPU) {
+  free(inCPU);
 }

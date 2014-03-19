@@ -2,6 +2,8 @@
 #ifndef __BEARD_CPU_H__
 #define __BEARD_CPU_H__
 
+#include<stdlib.h>
+
 typedef unsigned char BYTE_T;
 typedef unsigned char bool;
 #define true 1
@@ -35,6 +37,10 @@ typedef struct BeardCPU {
   BYTE_T memory[256];
 } BeardCPU;
 
+BeardCPU* beardmachine_init();
+
+void beardmachine_teardown(BeardCPU* inCPU);
+
 void step(BeardCPU* inCPU);
 
 void advance(BeardCPU* inCPU);
@@ -46,4 +52,8 @@ void write_ram(const BYTE_T address, const BYTE_T value, BeardCPU* const inCPU);
 BYTE_T read_register(const unsigned int register_id, const bool special, const BeardCPU* const inCPU);
 
 void write_register(const unsigned int register_id, const bool special, const BYTE_T value, BeardCPU* const inCPU);
+
+
 #endif
+
+
