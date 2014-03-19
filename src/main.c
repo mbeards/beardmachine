@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
         continue;
       }
       BYTE_T value = read_register(addr, input[0]=='s', cpu);
-      printf("%sRegister %u: 0x%.8x\n", input[0]=='s'?"Special ":"", addr, value);
+      printf("%sRegister %u: 0x%.2x\n", input[0]=='s'?"Special ":"", addr, value);
     } else if (input[0] == 'm' && input[1] == 'r') {
       printf("Memory Read\n");
       unsigned int addr;
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         continue;
       }
       BYTE_T value = read_ram(addr, cpu);
-      printf("Address 0x%.2x: 0x%.8x\n", addr, value);
+      printf("Address 0x%.2x: 0x%.2x\n", addr, value);
     } else if (input[0] == 'm' && input[1] == 'w') {
       printf("Memory Write\n");
     } else if (input[0] == 's') {
