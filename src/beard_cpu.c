@@ -110,6 +110,9 @@ void advance(BeardCPU* inCPU) {
 BeardCPU* beardmachine_init() {
   // Allocate memory
   BeardCPU* cpu_ptr = (BeardCPU*)malloc(sizeof(struct BeardCPU));
+
+  // Initialize memory with a simple program
+
   return cpu_ptr;
 }
 
