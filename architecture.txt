@@ -24,10 +24,20 @@ Special Registers:
 Operations:
 0000: NOP
 0001: LOAD: Load byte from $R(A) to R(B)
+      STORE: Store data from R(B) to $R(A)
 0010: CP: Copy byte from R(A) to R(B)
 0011: CSP: Copy byte from SR(A) to R(B)
 0100: CPS: Copy byte from R(A) to SR(B)
 0101: INC: Increment R(A)
 0110: NOR: Set R(A) to R(A) nor R(B)
+      J:  Set PC to R(A)
 0111: JLE: Set PC to SR(10) if R(A) > R(B)
+1000: PRINT: Write R(B) bytes out on the IO port, starting from $R(A)
+1001: READ: Read R(B) bytes in on the IO port, storing them starting at $R(A).  Sets R(B) to the number of bytes read
 
+
+Note that while addresses are specified with 8 bits, there may not actually be 256 bytes of available memory.
+
+In particular, expect the following regions of memory to be in use:
+0x00 - 0x0F: System Data
+0x## - 0xFF: Currently executing program

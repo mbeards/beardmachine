@@ -2,7 +2,10 @@
 #ifndef __BEARD_CPU_H__
 #define __BEARD_CPU_H__
 
-typedef unsigned char BYTE;
+typedef unsigned char BYTE_T;
+typedef unsigned char bool;
+#define true 1
+#define false 0
 
 enum special_registers {
   PROGRAM_COUNTER=0,
@@ -11,33 +14,36 @@ enum special_registers {
   UNDEFINED=3
 };
 
-enum opcodes {
+typedef enum {
   NOP=0,
   LOAD,
+  STORE,
   CP,
   CSP,
   CPS,
   INC,
   NOR,
+  J,
   JLE,
   PRINT,
   READ
-};
+} OPCODE_T;
 
 typedef struct BeardCPU {
-  BYTE[4] registers;
-  BYTE[4] special_registers;
-  BYTE[256] memory;
+  BYTE_T registers[4];
+  BYTE_T special_registers[4];
+  BYTE_T memory[256];
 } BeardCPU;
 
 void step(BeardCPU* inCPU);
 
-BYTE read_ram(const BYTE address, const BeardCPU* const inCPU);
+void advance(BeardCPU* inCPU);
 
-void write_ram(const BYTE address, const BYTE value, BeardCPU* const inCPU);
+BYTE_T read_ram(const BYTE_T address, const BeardCPU* const inCPU);
 
-BYTE read_register(const unsigned int register_id, const bool special, const BeardCPU* const inCPU);
+void write_ram(const BYTE_T address, const BYTE_T value, BeardCPU* const inCPU);
 
-void write_register(const unsigned int register_id, const bool special, const BYTE value, BeardCPU* const inCPU);
+BYTE_T read_register(const unsigned int register_id, const bool special, const BeardCPU* const inCPU);
 
+void write_register(const unsigned int register_id, const bool special, const BYTE_T value, BeardCPU* const inCPU);
 #endif
