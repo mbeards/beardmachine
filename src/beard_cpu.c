@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "beard_cpu.h"
 
 void step(BeardCPU* inCPU) {
@@ -19,42 +20,59 @@ void step(BeardCPU* inCPU) {
   // Select operation
   switch(opcode) {
     case LOAD: {
+      CPULOG("Decoded LOAD");
       BYTE_T address = read_register(argument_a, false, inCPU);
       BYTE_T value = read_ram(address, inCPU);
       write_register(argument_b, false, value, inCPU);
-      advance(inCPU);
       break;
     }
     case STORE: {
+      CPULOG("Decoded STORE");
       BYTE_T address = read_register(argument_a, false, inCPU);
       BYTE_T value = read_register(argument_b, false, inCPU);
       write_ram(address, value, inCPU);
-      advance(inCPU);
       break;
     }
     case CP:
+      CPULOG("Decoded CP");
       break;
     case CSP:
+      CPULOG("Decoded CSP");
       break;
     case CPS:
+      CPULOG("Decoded CPS");
       break;
     case INC:
+      CPULOG("Decoded INC");
       break;
     case NOR:
+      CPULOG("Decoded NOR");
       break;
     case J:
+      CPULOG("Decoded J");
       break;
     case JLE:
+      CPULOG("Decoded JLE");
       break;
     case PRINT:
+      CPULOG("Decoded PRINT");
       break;
     case READ:
+      CPULOG("Decoded READ");
+      break;
+    case HALT:
+      CPULOG("Decoded HALT");
+      break;
+    case LIT:
+      CPULOG("Decoded LIT");
+      advance(inCPU);
       break;
     case NOP:
     default:
-      advance(inCPU);
+      CPULOG("Decoded NOP");
       break;
   }
+  advance(inCPU);
 }
 
 
@@ -104,6 +122,7 @@ void write_register(const unsigned int register_id, const bool special, const BY
  **/
 void advance(BeardCPU* inCPU) {
   BYTE_T program_counter = read_register(0, true, inCPU);
+  printf("CPU: Advancing program counter to %.2x\n", program_counter+1);
   write_register(0, true, program_counter + 1, inCPU);
 }
 

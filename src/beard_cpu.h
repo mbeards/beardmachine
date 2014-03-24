@@ -3,6 +3,9 @@
 #define __BEARD_CPU_H__
 
 #include<stdlib.h>
+#include <stdio.h>
+
+#define CPULOG(msg) printf("CPU: %s\n", msg);
 
 typedef unsigned char BYTE_T;
 typedef unsigned char bool;
@@ -28,7 +31,9 @@ typedef enum {
   J,
   JLE,
   PRINT,
-  READ
+  READ,
+  LIT,
+  HALT=15
 } OPCODE_T;
 
 typedef struct BeardCPU {

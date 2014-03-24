@@ -9,6 +9,13 @@ int main(int argc, char** argv) {
   BeardCPU* cpu = beardmachine_init();
 
 
+  // Load a program into the cpu
+  int lValueCount = 9;
+  unsigned char lValues[9] = { 204,7,93,204,254,54,100,157,240 };
+  for(int i = 0; i<lValueCount; ++i) {
+    cpu->memory[i] = lValues[i];
+  }
+
   char input[128];
 
   while(true) {
