@@ -25,18 +25,16 @@ Operations:
 0000: NOP
 0001: LOAD: Load byte from $R(A) to R(B)
 0010: STORE: Store data from R(B) to $R(A)
-0011: LIT: Set R(0) to A << 2 && B
-0100: CP: Copy byte from R(A) to R(B)
-0101: CSP: Copy byte from SR(A) to R(B)
-0110: CPS: Copy byte from R(A) to SR(B)
-0111: INC: Increment R(A)
-1000: NOR: Set R(A) to R(A) nor R(B)
-1001: J:  Set PC to R(A)
-1010: JLE: Set PC to SR(10) if R(A) > R(B)
-1011: PRINT: Write R(B) bytes out on the IO port, starting from $R(A)
-1100: READ: Read R(B) bytes in on the IO port, storing them starting at $R(A).  Sets R(B) to the number of bytes read
-1101: SETUP: R(3) &=  A << 6 && B << 4 to R(3)
-1110: SETLO: R(3) &=  A << 2 && B to R(3)
+0011: CP: Copy byte from R(A) to R(B)
+0100: CSP: Copy byte from SR(A) to R(B)
+0101: CPS: Copy byte from R(A) to SR(B)
+0110: INC: Increment R(A)
+0111: NOR: Set R(A) to R(A) nor R(B)
+1000: J:  Set PC to R(A)
+1001: JLE: Set PC to SR(10) if R(A) > R(B)
+1010: PRINT: Write R(B) bytes out on the IO port, starting from $R(A)
+1011: READ: Read R(B) bytes in on the IO port, storing them starting at $R(A).  Sets R(B) to the number of bytes read
+1100: LIT: Read literal from next byte to R(A)
 1111: HALT
 
 Note that while addresses are specified with 8 bits, there may not actually be 256 bytes of available memory.
